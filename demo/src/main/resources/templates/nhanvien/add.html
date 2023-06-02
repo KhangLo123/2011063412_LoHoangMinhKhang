@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <th:block th:replace="layout :: link-css"></th:block>
+  <title>Add</title>
+</head>
+<body>
+<th:block th:replace="layout :: header"></th:block>
+<div class="container">
+  <h1>Add</h1>
+  <form th:action="@{/nhanviens/add}" th:object="${book}" method="post" enctype="multipart/form-data">
+
+    <div class="col-6 mb-3">
+      <label class="form-label" for="title">Mã nhân viên:</label>
+      <input class="form-control" type="text" th:field="*{title}" id="title">
+      <span class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+    </div>
+
+    <div class="col-6 mb-3">
+      <label class="form-label" for="author">Tên nhân viên:</label>
+      <input class="form-control" type="text" th:field="*{author}" id="author">
+    </div>
+    <div class="col-6 mb-3">
+      <label class="form-label" for="image">Phái:</label>
+      <input class="form-control" type="file" name="imageProduct" id="image" accept="image/png, image/jpeg">
+      <div class="alert alert-warning" th:if="${#fields.hasErrors('image')}" th:errors="*{image}"></div>
+    </div>
+
+    <div class="col-6 mb-3">
+      <label class="form-label" for="price">Lương:</label>
+      <input class="form-control" type="text" th:field="*{price}" id="price">
+      <span class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+    </div>
+
+    <div class="col-6 mb-3">
+      <label class="form-label" for="category">Tên phòng ban:</label>
+      <select class="form-control" id="category" name="category.id">
+        <option value="">-- Select Phòng Ban --</option>
+        <option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+      </select>
+      <span class="text-danger" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></span>
+    </div>
+    <input type="submit" class="btn btn-primary" value="save" >
+  </form>
+  <a th:href="@{~/nhanviens}">Back to List</a>
+</div>
+<th:block th:replace="layout :: footer"></th:block>
+</body>
+</html>

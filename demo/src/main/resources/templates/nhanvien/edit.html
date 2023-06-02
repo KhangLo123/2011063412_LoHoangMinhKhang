@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit</title>
+  <th:block th:replace="layout :: link-css"></th:block>
+</head>
+<body>
+<th:block th:replace="layout :: header"></th:block>
+<div class="container">
+  <h1>Edit</h1>
+  <form th:action="@{/nhanviens/edit/{id}(id=${book.id})}" th:object="${book}" method="post" enctype="multipart/form-data">
+    <input type="hidden" th:field="*{id}">
+    <div class="col-6 mb-3">
+      <label class="form-label" for="title">Mã nhân viên</label>
+      <input type="text" class="form-control bg-white" id="title" placeholder="Title" th:field="*{title}">
+    </div>
+    <div class="col-6 mb-3">
+      <label class="form-label" for="image">Phái</label>
+      <img class="form-control" th:src="@{/images/} + *{image}" placeholder="image"/>
+      <input class="form-control" type="file" name="imageProduct" id="image" accept="image/png, image/jpeg">
+    </div>
+    <div class="col-6 mb-3">
+      <label class="form-label" for="author">Tên nhân viên</label>
+      <input type="text" class="form-control bg-white" id="author" placeholder="Author" th:field="*{author}">
+    </div>
+    <div class="col-6 mb-3">
+      <label class="form-label" for="price">Lương</label>
+      <input type="text" class="form-control bg-white" id="price" placeholder="Price" th:field="*{price}">
+    </div>
+    <div class="col-6 mb-3">
+      <label class="form-label" for="category">Tên phòng ban</label>
+      <select class="form-control" id="category" th:field="*{category.id}">
+        <option value=""> ==Select Phòng Ban== </option>
+        <option th:each="category : ${categories}" th:value="${category.id}"
+                th:text="${category.name}"></option>
+      </select>
+    </div>
+    <input type="submit" value="Save">
+  </form>
+  <br>
+  <a th:href="@{/nhanviens}">Back to list</a>
+</div>
+<th:block th:replace="layout :: footer"></th:block>
+</body>
+</html>
